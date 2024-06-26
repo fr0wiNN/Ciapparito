@@ -1,8 +1,14 @@
 import asyncio
+import os
 import discord
 from discord.ext import commands
 
+token_file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'ciapparito_token.txt')
+
 TOKEN = ""
+
+with open(token_file_path, 'r') as file:
+    TOKEN = file.read().strip()
 
 def run():
     intents = discord.Intents.default()
