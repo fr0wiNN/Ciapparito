@@ -49,29 +49,6 @@ def run():
         await wakeup_queue.put((user, ctx))
         await ctx.send(f'{user.display_name} added to the wakeup queue!')
 
-    @bot.command()
-    async def ping(ctx):
-        await ctx.send("pong")
-
-    @bot.command()
-    async def quote(ctx):
-        # This function would normally fetch a quote from an external API
-        quote, author = "Persist and resist.", "Epictetus"
-        await ctx.send(f"{quote} \n- {author}")
-
-    @bot.command()
-    async def echo(ctx, *what):
-        await ctx.send(" ".join(what))
-
-    @bot.command()
-    async def gpt(ctx, *question):
-        # Placeholder for a function to generate responses from a model or API
-        if question:
-            response = " ".join(question)  # Simulate a response
-            await ctx.send(response)
-        else:
-            await ctx.send("No question provided.")
-
     bot.run(TOKEN, root_logger=True)
 
 if __name__ == "__main__":
