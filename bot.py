@@ -77,30 +77,31 @@ def run():
 
         if channel_1 is not None and channel_2 is not None:
             try:
+                sleep_time = 1
                 # sliding down
                 await user.move_to(channel_2)
-                await asyncio.sleep(2)
+                await asyncio.sleep(sleep_time)
                 await user.move_to(channel_3)
-                await asyncio.sleep(2)
+                await asyncio.sleep(sleep_time)
                 await user.move_to(channel_4)
-                await asyncio.sleep(2)
+                await asyncio.sleep(sleep_time)
                 await user.move_to(channel_5)
-                await asyncio.sleep(2)
+                await asyncio.sleep(sleep_time)
                 await user.move_to(channel_6)
-                await asyncio.sleep(2)
+                await asyncio.sleep(sleep_time)
                 await user.move_to(channel_7)
-                await asyncio.sleep(2)
+                await asyncio.sleep(sleep_time)
                 # sliding up
                 await user.move_to(channel_6)
-                await asyncio.sleep(2)
+                await asyncio.sleep(sleep_time)
                 await user.move_to(channel_5)
-                await asyncio.sleep(2)
+                await asyncio.sleep(sleep_time)
                 await user.move_to(channel_4)
-                await asyncio.sleep(2)
+                await asyncio.sleep(sleep_time)
                 await user.move_to(channel_3)
-                await asyncio.sleep(2)
+                await asyncio.sleep(sleep_time)
                 await user.move_to(channel_2)
-                await asyncio.sleep(2)
+                await asyncio.sleep(sleep_time)
                 await user.move_to(channel_1)
                 await ctx.send(f'{user.display_name} has been slided!')
             except discord.HTTPException as e:
