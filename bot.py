@@ -55,8 +55,8 @@ def run():
 
     @bot.command()
     async def slide(ctx, user: discord.Member):
-        await handle_slide(user, ctx)
         await ctx.send(f'Sliding {user.display_name}!')
+        await handle_slide(user, ctx)
 
     async def handle_slide(user, ctx):
         channel_1_id = '1064987439954939986' # ekipa
