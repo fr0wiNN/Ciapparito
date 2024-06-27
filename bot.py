@@ -11,7 +11,6 @@ def run():
 
     bot = commands.Bot(command_prefix="!", intents=intents)
     wakeup_queue = asyncio.Queue()
-    slide_queue = asyncio.Queue()
 
     ## WAKEUP
 
@@ -51,22 +50,13 @@ def run():
     async def on_ready():
         print(f'Logged in as: {bot.user} (ID: {bot.user.id})')
         bot.loop.create_task(process_wakeup_queue())
-        bot.loop.create_task(process_slide_queue())
 
     ## SLIDE
 
     @bot.command()
     async def slide(ctx, user: discord.Member):
-        await slide_queue.put((user, ctx))
-        await ctx.send(f'{user.display_name} added to the slider queue!')
-
-    async def process_slide_queue():
-        while True:
-            user, ctx = await wakeup_queue.get()
-            try:
-                await handle_slide(user, ctx)
-            finally:
-                slide_queue.task_done()
+        await handle_slide(user, ctx)
+        await ctx.send(f'Sliding {user.display_name}!')
 
     async def handle_slide(user, ctx):
         channel_1_id = '1064987439954939986' # ekipa
