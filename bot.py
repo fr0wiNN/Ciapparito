@@ -1,7 +1,8 @@
 import asyncio
 import os
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
+from datetime import datetime
 
 TOKEN = ""
 
@@ -129,6 +130,27 @@ def run():
             await vc.disconnect()
         else:
             await ctx.send("You need to be in a voice channel to use this command.")
+
+    ## AUTOMATIC JOIN
+
+    target_voice_channel_id = '1051525618195497082'  # Replace with your target voice channel ID
+
+    @tasks.loop(seconds=60)  # Check every minute
+    async def check_time():
+        now = datetime.now()
+        if now.hour == 17 and now.minute == 20:
+            guild = bot.guilds[0]  # Assumes the bot is only in one guild
+            voice_channel = guild.get_channel(int(target_voice_channel_id))
+            if voice_channel:
+                vc = await voice_channel.connect()
+                audio_source = discord.FFmpegPCMAudio(barka_path)
+                if not vc.is_playing():
+                    vc.play(audio_source, after=lambda e: print(f'Finished playing {e}'))
+
+                while vc.is_playing():
+                    await asyncio.sleep(1)
+
+                await vc.disconnect()
 
     bot.run(TOKEN, root_logger=True)
 
