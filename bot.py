@@ -139,7 +139,7 @@ def run():
     @tasks.loop(seconds=60)  # Check every 10s 
     async def check_time():
         now = datetime.now()
-        if now.hour == 17 and now.minute == 33:
+        if now.hour == 17 and now.minute == 36:
             print(f'barka time started on: {now}')
             guild = bot.guilds[0]  # Assumes the bot is only in one guild
             voice_channel = guild.get_channel(int(target_voice_channel_id))
