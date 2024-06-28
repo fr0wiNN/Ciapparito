@@ -135,9 +135,10 @@ def run():
 
     target_voice_channel_id = '1051525618195497082'  # Replace with your target voice channel ID
 
-    @tasks.loop(seconds=60)  # Check every minute
+    @tasks.loop(seconds=30)  # Check every half a minute 
     async def check_time():
         now = datetime.now()
+        print(f'checked time: {now}')
         if now.hour == 17 and now.minute == 20:
             guild = bot.guilds[0]  # Assumes the bot is only in one guild
             voice_channel = guild.get_channel(int(target_voice_channel_id))
