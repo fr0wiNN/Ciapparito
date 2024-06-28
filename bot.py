@@ -109,6 +109,27 @@ def run():
         else:
             await ctx.send('Channel not found.')
 
+    ## BARKA
+
+    barka_path = 'barka.mp3'
+
+    @bot.command()
+    async def barka(ctx):
+        if ctx.author.voice:
+            voice_channel = ctx.author.voice.channel
+            vc = await voice_channel.connect()
+
+            audio_source = discord.FFmpegAudio(barka_path)
+            if not vc.is_playing():
+                vc.play(audio_source, after=lambda e: print(f'Finished playing {e}'))
+            
+            while vc.is_playing():
+                await asyncio.sleep(1)
+
+            await vc.disconnect()
+        else:
+            await ctx.send("You have to be in voice channel to use this command!")
+
     bot.run(TOKEN, root_logger=True)
 
 if __name__ == "__main__":
