@@ -111,7 +111,7 @@ def run():
 
     ## BARKA
 
-    barka_path = 'barka.mp3'
+    barka_path = 'mp3/barka_normal.mp3'
 
     @bot.command()
     async def barka(ctx):
