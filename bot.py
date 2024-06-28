@@ -139,6 +139,10 @@ def run():
     @tasks.loop(seconds=60)  # Check every 10s 
     async def check_time():
         now = datetime.now()
+        print('------------- LOG --------------')
+        print(f'logging time: {now}')
+        print(f'hour: {now.hour}')
+        print(f'minute: {now.hour}')
         if now.hour == 17 and now.minute == 36:
             print(f'barka time started on: {now}')
             guild = bot.guilds[0]  # Assumes the bot is only in one guild
