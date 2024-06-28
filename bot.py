@@ -119,16 +119,16 @@ def run():
             voice_channel = ctx.author.voice.channel
             vc = await voice_channel.connect()
 
-            audio_source = discord.FFmpegAudio(barka_path)
+            audio_source = discord.FFmpegPCMAudio(barka_path)
             if not vc.is_playing():
                 vc.play(audio_source, after=lambda e: print(f'Finished playing {e}'))
-            
+
             while vc.is_playing():
                 await asyncio.sleep(1)
 
             await vc.disconnect()
         else:
-            await ctx.send("You have to be in voice channel to use this command!")
+            await ctx.send("You need to be in a voice channel to use this command.")
 
     bot.run(TOKEN, root_logger=True)
 
