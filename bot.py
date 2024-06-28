@@ -3,6 +3,7 @@ import os
 import discord
 from discord.ext import commands, tasks
 from datetime import datetime
+import pytz
 
 TOKEN = ""
 
@@ -113,7 +114,8 @@ def run():
 
     ## BARKA
 
-    barka_path = 'mp3/barka_normal.mp3'
+    barka_normal_path = 'mp3/barka_normal.mp3'
+    barka_drill_path = 'mp3/barka_drill.mp3'
 
     @bot.command()
     async def barka(ctx):
@@ -121,7 +123,7 @@ def run():
             voice_channel = ctx.author.voice.channel
             vc = await voice_channel.connect()
 
-            audio_source = discord.FFmpegPCMAudio(barka_path)
+            audio_source = discord.FFmpegPCMAudio(barka_normal_path)
             if not vc.is_playing():
                 vc.play(audio_source, after=lambda e: print(f'Finished playing {e}'))
 
@@ -134,22 +136,23 @@ def run():
 
     ## AUTOMATIC JOIN
 
-    target_voice_channel_id = '1051525618195497082'  # Replace with your target voice channel ID
+    target_voice_channel_id = '1064987439954939986'  # Replace with your target voice channel ID
 
-    @tasks.loop(seconds=10)  # Check every 10s 
+    @tasks.loop(seconds=60)  # Check every minute
     async def check_time():
-        now = datetime.now()
-        print('------------- LOG --------------')
-        print(f'logging time: {now}')
-        print(f'hour: {now.hour}')
-        print(f'minute: {now.hour}')
-        if now.hour == 17 and now.minute == 36:
-            print(f'barka time started on: {now}')
+        tz = pytz.timezone('Europe/Warsaw')  # Use the correct timezone for your location
+        now = datetime.now(tz)
+        print('------------------- LOG ----------------------')
+        print(f"logging time: {now}")
+        print(f"hour: {now.hour}")
+        print(f"minute: {now.minute}")
+        print(f"second: {now.second}")
+        if now.hour == 21 and now.minute == 37:
             guild = bot.guilds[0]  # Assumes the bot is only in one guild
             voice_channel = guild.get_channel(int(target_voice_channel_id))
             if voice_channel:
                 vc = await voice_channel.connect()
-                audio_source = discord.FFmpegPCMAudio(barka_path)
+                audio_source = discord.FFmpegPCMAudio(barka_drill_path)
                 if not vc.is_playing():
                     vc.play(audio_source, after=lambda e: print(f'Finished playing {e}'))
 
