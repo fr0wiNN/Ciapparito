@@ -51,6 +51,7 @@ def run():
     async def on_ready():
         print(f'Logged in as: {bot.user} (ID: {bot.user.id})')
         bot.loop.create_task(process_wakeup_queue())
+        check_time.start()
 
     ## SLIDE
 
@@ -135,7 +136,7 @@ def run():
 
     target_voice_channel_id = '1051525618195497082'  # Replace with your target voice channel ID
 
-    @tasks.loop(seconds=30)  # Check every half a minute 
+    @tasks.loop(seconds=10)  # Check every 10s 
     async def check_time():
         now = datetime.now()
         print(f'checked time: {now}')
